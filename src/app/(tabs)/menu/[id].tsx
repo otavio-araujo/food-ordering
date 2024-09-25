@@ -1,18 +1,23 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Pressable, Alert } from "react-native";
 import React from "react";
 import { Stack, useLocalSearchParams } from "expo-router";
 import products from "@/assets/data/products";
 import { defaultPizzaImage } from "@/src/components/Product/ProductListItem";
+import Button from "@/src/components/Forms/Button";
 
 const sizes = ["S", "M", "L", "XL"];
 
 const ProductDetailsScreen = () => {
   const { id } = useLocalSearchParams();
-
+  const [selectedSize, setSelectedSize] = React.useState("M");
   const product = products.find((p) => p.id.toString() === id);
   if (!product) {
     return <Text>Product not found</Text>;
   }
+
+  const addToCart = () => {
+    Alert.alert("Add to Cart and Selected Size: " + selectedSize);
+  };
 
   return (
     <View className="flex-1 p-3">
@@ -25,15 +30,29 @@ const ProductDetailsScreen = () => {
       <Text className="text-sm font-bold">Select size:</Text>
       <View className="flex-row justify-around my-3">
         {sizes.map((size) => (
-          <View
+          <Pressable
+            onPress={() => {
+              setSelectedSize(size);
+            }}
             key={size}
-            className="items-center justify-center w-12 h-12 bg-gray-300 rounded-full"
+            className={`items-center justify-center w-12 h-12 rounded-full ${
+              selectedSize === size ? "bg-gray-300" : ""
+            }`}
           >
-            <Text className="text-lg font-medium">{size}</Text>
-          </View>
+            <Text
+              className={`tex t-lg font-medium ${
+                selectedSize === size ? "text-gray-900" : "text-gray-400"
+              }`}
+            >
+              {size}
+            </Text>
+          </Pressable>
         ))}
       </View>
-      <Text className="text-lg font-bold">Price: ${product.price}</Text>
+      <Text className="mt-auto text-lg font-bold">
+        Price: ${product.price.toFixed(2)}
+      </Text>
+      <Button text="Add to cart" onPress={addToCart} />
     </View>
   );
 };
