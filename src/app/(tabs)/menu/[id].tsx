@@ -1,6 +1,6 @@
 import { View, Text, Image, Pressable, Alert } from "react-native";
 import React from "react";
-import { Stack, useLocalSearchParams } from "expo-router";
+import { router, Stack, useLocalSearchParams } from "expo-router";
 import products from "@/assets/data/products";
 import { defaultPizzaImage } from "@/src/components/Product/ProductListItem";
 import Button from "@/src/components/Forms/Button";
@@ -20,6 +20,7 @@ const ProductDetailsScreen = () => {
       return;
     }
     addItem(product, selectedSize);
+    router.push("/cart");
   };
 
   if (!product) {
