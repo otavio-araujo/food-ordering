@@ -1,5 +1,10 @@
-import { Redirect } from "expo-router";
+import { Redirect, Stack } from "expo-router";
 
 export default function TabIndex() {
-  return <Redirect href={"/(user)/menu/"} />;
+  return (
+    <>
+      <Stack.Screen options={{ headerShown: false }} />
+      <Redirect href={"/(user)/menu/"} />
+    </>
+  );
 }
