@@ -29,7 +29,9 @@ const ProductDetailsScreen = () => {
 
   return (
     <View className="flex-1 p-3">
-      <Stack.Screen options={{ title: product?.name }} />
+      <Stack.Screen
+        options={{ title: product?.name, headerTitleAlign: "center" }}
+      />
       <Image
         source={{ uri: product.image || defaultPizzaImage }}
         className="w-full aspect-square"

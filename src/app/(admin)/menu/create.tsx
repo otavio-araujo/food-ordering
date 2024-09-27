@@ -2,11 +2,14 @@ import Button from "@/src/components/Forms/Button";
 import { defaultPizzaImage } from "@/src/components/Product/ProductListItem";
 import { useState } from "react";
 import { View, Text, TextInput, Image } from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import { Stack } from "expo-router";
 
 const CreateProductScreen = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [errors, setErrors] = useState("");
+  const [image, setImage] = useState<string | null>(null);
 
   const resetFields = () => {
     setName("");
@@ -44,13 +47,37 @@ const CreateProductScreen = () => {
     // Save in the database
     resetFields();
   };
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+
   return (
     <View className="justify-center flex-1 p-3">
+      <Stack.Screen
+        options={{ title: "Create Product", headerTitleAlign: "center" }}
+      />
+
       <Image
-        source={{ uri: defaultPizzaImage }}
+        source={{ uri: image || defaultPizzaImage }}
         className="self-center w-[50%] aspect-square"
       />
-      <Text className="self-center my-[10px] font-bold text-blue-500">
+      <Text
+        className="self-center my-[10px] font-bold text-blue-500"
+        onPress={pickImage}
+      >
         Select an Image
       </Text>
 
