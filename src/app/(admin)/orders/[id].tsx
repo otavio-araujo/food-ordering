@@ -16,7 +16,9 @@ const OrderDetailsScreen = () => {
 
   return (
     <View className="p-4">
-      <Stack.Screen options={{ title: `Order #${order.id}` }} />
+      <Stack.Screen
+        options={{ title: `Order #${order.id}`, headerTitleAlign: "center" }}
+      />
 
       <OrderListItem order={order} />
 
