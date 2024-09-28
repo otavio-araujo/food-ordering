@@ -9,7 +9,7 @@ const OrdersScreen = () => {
     <View className="p-4">
       <Stack.Screen
         options={{
-          title: "Orders",
+          title: "Active",
           headerTitleAlign: "center",
         }}
       />
