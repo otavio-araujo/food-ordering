@@ -1,5 +1,4 @@
-import { Redirect, Stack } from "expo-router";
-import { View } from "react-native";
+import { Redirect, Stack } from "expo-router"
 
 export default function TabIndex() {
   return (
@@ -7,5 +6,5 @@ export default function TabIndex() {
       <Stack.Screen options={{ headerShown: false }} />
       <Redirect href={"/(admin)/menu/"} />
     </>
-  );
+  )
 }
